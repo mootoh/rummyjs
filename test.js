@@ -34,6 +34,23 @@ describe("Deck", function(){
 });
 
 describe("Game", function(){
+  it("should have 1 deck for 1-2 player", function(){
+    var g1 = new rummy.Game(1);
+    assert.equal(54, g1.deck.length);
+
+    var g2 = new rummy.Game(2);
+    assert.equal(54, g2.deck.length);
+  });
+  it("should have 2 deck for 3-4", function(){
+    var g3 = new rummy.Game(3);
+    assert.equal(54*2, g3.deck.length);
+
+    var g4 = new rummy.Game(4);
+    assert.equal(54*2, g4.deck.length);
+  });
+});
+
+describe("Check logics", function(){
   var checkIsFinished = function(cards, expected) {
     cards = cards.map(function(c) {
       return new rummy.Card(c[0], c[1]);

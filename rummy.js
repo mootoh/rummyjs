@@ -111,8 +111,15 @@ Deck.prototype.shuffle = function() {
 
 var Game = function(howmany) {
   this.players = [];
-  for (var i=0; i<howmany; i++)
+  var decks = [];
+  for (var i=0; i<howmany; i++) {
     this.players.push(new Player(i));
+  }
+
+  for (var i=0; i<parseInt((howmany+1)/2); i++)
+    decks.push(new Deck());
+
+  this.deck = decks.reduce(function(arr, deck) { return arr.concat(deck.cards); }, []);
 }
 
 Game.prototype.shuffle = function() {
