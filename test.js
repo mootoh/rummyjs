@@ -48,6 +48,18 @@ describe("Game", function(){
     var g4 = new rummy.Game(4);
     assert.equal(54*2, g4.deck.length);
   });
+
+  it("should deal randomly shuffled cards to each player", function(){
+    var g = new rummy.Game(1);
+    g.shuffle();
+    g.deal();
+    console.log(rummy.cardsToString(g.players[0].cards))
+
+    ;
+
+    console.log(rummy.isFinished(g.players[0].cards));
+
+  });
 });
 
 describe("Check logics", function(){

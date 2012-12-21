@@ -80,7 +80,12 @@ function cardsToString(cards) {
 
 var Player = function(name) {
   this.name = name;
+  this.cards = [];
   this.score = 0;
+}
+
+Player.prototype.addCard = function(card) {
+  this.cards.push(card);
 }
 
 var Deck = function() {
@@ -123,9 +128,24 @@ var Game = function(howmany) {
 }
 
 Game.prototype.shuffle = function() {
-
+  for (var i=0; i<this.deck.length-1; i++) {
+    var len = this.deck.length-i-1;
+    var pos = parseInt(Math.random() * len + i);
+    var t = this.deck[i];
+    this.deck[i] = this.deck[pos];
+    this.deck[pos] = t;
+  }
 }
 
+Game.prototype.deal = function() {
+  var self = this;
+  for (var i=0; i<13; i++) {
+    this.players.forEach(function(player) {
+      var card = self.deck.shift();
+      player.addCard(card);
+    });
+  }
+}
 
 exports.Card = Card;
 exports.Player = Player;
