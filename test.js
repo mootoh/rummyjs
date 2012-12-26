@@ -53,12 +53,15 @@ describe("Game", function(){
     var g = new rummy.Game(1);
     g.shuffle();
     g.deal();
-    console.log(rummy.cardsToString(g.players[0].cards))
-
-    ;
-
+    assert.equal(54-13, g.deck.length)
+    console.log(rummy.cardsToString(g.players[0].cards));
     console.log(rummy.isFinished(g.players[0].cards));
-
+  });
+  it('shuold setup the game state', function(){
+    var g = new rummy.Game(1);
+    g.setup();
+    console.log(g.wildcard);
+    console.log(g.pile);
   });
 });
 
