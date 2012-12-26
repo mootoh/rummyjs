@@ -151,6 +151,66 @@ Game.prototype.deal = function() {
   }
 }
 
+Game.prototype.setup = function() {
+  this.shuffle();
+  this.deal();
+
+  this.wildcard = this.deck.shift();
+  this.pile = [this.deck.shift()];
+}
+
+Game.prototype.play = function() {
+  var async = require('async');
+  var self = this;
+  var firstPlayer = self.players[0];
+
+  console.log(this.players[0].cards);
+
+  if (isFinished(this.players[0].cards)) {
+    console.log('Finished!');
+    return;
+  } else {
+    var readline = require('readline');
+    var rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout
+    });
+
+    console.log('Top of Pile: ' + this.pile[0]);
+
+    // Pick a card or sort the cards
+    rl.question("Pick (Deck or Pile) / Sort ? ", function(choice) {
+      var card = null;
+      if (choice === 'd') {
+        console.log('Deck');
+        card = self.deck.shift();
+      } else if (choice === 'p') {
+        console.log('Pile');
+        card = self.pile.shift();
+      } else if (choice === 's') {
+        // sort it, then play again
+        firstPlayer.cards.sort();
+        rl.close();
+        self.play();
+        return;
+      }
+      console.log('Picked card:' + card.toString());
+      firstPlayer.cards.unshift(card);
+      console.log(firstPlayer.cards);
+
+      // Choose a card to dispose
+      rl.question("Which to dispose ? ", function(index) {
+        index = parseInt(index);
+        card = firstPlayer.cards.splice(index, 1);
+        self.pile.unshift(card);
+
+        rl.close();
+        self.play();
+      });
+    });
+  }
+}
+
 exports.Card = Card;
 exports.Player = Player;
 exports.Game = Game;
