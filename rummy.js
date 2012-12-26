@@ -70,6 +70,12 @@ function isFinished(cds) {
 
   var cards = cds.slice(1);
   var first = cds[0];
+
+  // Put wildcards to the tail since the isFinished logic can be confused if the wirld card is at head.
+  while (first.isWildcard()) {
+    cards.push(first);
+    first = cards.shift();
+  }
  
   return sameNumbers(cards, first.n, 1) || successive(cards, first.n, first.s, 1);
 }
