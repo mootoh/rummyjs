@@ -123,5 +123,22 @@ describe("Check logics", function(){
         [10, 'a']
       ], false);
     });
+    it("should be false for simple case 5", function(){
+      checkIsFinished([
+        [-1, '*'],
+        [10, 'c'],
+        [11, 'c'],
+        [4, 'd'],
+        [5, 'c'],
+        [5, 'd'],
+        [6, 'c'],
+        [6, 'd'],
+        [7, 'c'],
+        [7, 'd'],
+        [8, 'a'],
+        [8, 'c'],
+        [9, 'a']
+      ], false);
+    });
   });
 });
