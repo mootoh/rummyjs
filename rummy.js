@@ -17,6 +17,10 @@ Card.prototype.rank = function() {
     : this.n > 10 ? 10 : this.n;
 }
 
+Card.prototype.toString = function() {
+  return '{n: ' + this.n + ', s:' + this.s + '}';
+}
+
 function sameNumbers(cards, n, count) {
   // console.log("sameNumbers: [" + n + ':' + count + ']', cardsToString(cards));
 
