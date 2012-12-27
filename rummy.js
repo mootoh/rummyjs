@@ -207,7 +207,7 @@ Game.prototype.play = function() {
       // Choose a card to dispose
       rl.question("Which to dispose ? ", function(index) {
         index = parseInt(index);
-        card = firstPlayer.cards.splice(index, 1);
+        card = firstPlayer.cards.splice(index, 1)[0];
         self.pile.unshift(card);
 
         rl.close();
